@@ -19,7 +19,7 @@ class DistanceSensor {
     int values[DISTANCE_SAMPLES];
     
     void init();
-    int receive_data();
+    float receive_data();
     void alert_flag_check(int distance);
     float median(int a[], int array_size);
     void sort(int a[], int array_size);

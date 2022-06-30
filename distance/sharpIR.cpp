@@ -12,8 +12,8 @@ DistanceSensor::DistanceSensor(int pin, char position, int alert_until) {
       pinMode(pin, INPUT);
     }
     
-    int DistanceSensor::receive_data() {
-      int distanceCM;
+    float DistanceSensor::receive_data() {
+      float distanceCM;
       // Store the Distance sensor values 
       for (int i=0; i<DISTANCE_SAMPLES; i++){
         values[i] = analogRead(pin);
@@ -21,9 +21,14 @@ DistanceSensor::DistanceSensor(int pin, char position, int alert_until) {
       sort(values, DISTANCE_SAMPLES); 
       float final_value = median(values, DISTANCE_SAMPLES); 
       distanceCM = 60.374  * pow(map(final_value, 0, 1023, 0, 5000)/1000.0, -1.16);
-      
+
+      if(distanceCM<20){
+        distanceCM = (distanceCM+2.08)/1.406;  //calib for <20 cm
+      }
+      else{
+        distanceCM = (distanceCM+1.0536)/1.2695;  //calib for 20-100cm
+      }
       alert_flag_check(distanceCM);
-      
       return distanceCM;
     }
     void DistanceSensor::alert_flag_check(int distance){
