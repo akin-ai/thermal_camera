@@ -43,10 +43,10 @@ void setup()
   Wire.begin();
   Wire.setClock(400000); //Increase I2C clock speed to 400kHz
 
-  Serial.begin(115200); //Fast serial as possible
+  Serial.begin(9600); //Fast serial as possible
   
   while (!Serial); //Wait for user to open terminal
-  Serial.println("MLX90640 IR Array Example");
+  //Serial.println("MLX90640 IR Array Example");
 
   if (isConnected() == false)
   {
