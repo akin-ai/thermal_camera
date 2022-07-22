@@ -42,9 +42,14 @@
         int16_t cpOffset[2];
         float ilChessC[3]; 
         uint16_t brokenPixels[5];
-        uint16_t outlierPixels[5];  
+        uint16_t outlierPixels[5]; 
+        float mlx90640To[768];
+        int MLX90640_address;
     } paramsMLX90640;
-    
+
+    boolean isConnected();
+    paramsMLX90640 MLX90640init(paramsMLX90640 mlx90640);
+    paramsMLX90640 MLX90640_Send(paramsMLX90640 mlx90640);
     int MLX90640_DumpEE(uint8_t slaveAddr, uint16_t *eeData);
     int MLX90640_GetFrameData(uint8_t slaveAddr, uint16_t *frameData);
     int MLX90640_ExtractParameters(uint16_t *eeData, paramsMLX90640 *mlx90640);
